@@ -1,3 +1,55 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
-  background: blue;
+}
+
+h1 {
+  border: 10px solid black;
+  margin: 10px auto;
+  background-color: red;
+  text-align: center;
+}
+
+p {
+  border: 5px solid blue;
+  background-color: green;
+}
+
+#board {
+  border: 3px solid rgba(11,13,13, 0.7);
+  background-color: rgba(85, 173, 195, 0.7);
+  width: 600px;
+  height: 300px;
+  position: relative;
+  top: 100px;
+  margin: auto;
+}
+
+.paddles {
+  border: 2px solid rgba(11,13,13, 0.7);
+  background-color: rgba(11,13,13, 0.7);
+  width: 30px;
+  height: 60px;
+}
+
+#paddleA {
+  position: absolute;
+  top:120px;
+  left:20px;
+}
+
+#paddleB {
+  position: absolute;
+  top: 120px;
+  right: 20px;
+}
+
+#ball {
+  /*border: 5px solid green;
+  background-color: maroon;
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;*/
 }
