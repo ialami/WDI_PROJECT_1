@@ -63,23 +63,59 @@ Potential for scale-up:
 $(() => {
   // declare JQuery variables
 
-  //declare events that trigger the game
+  //Downwards movements
+  //move paddle B down when press down arrow
   $(document).on('keydown', function(e) {
     const code = e.keyCode;
-    console.log(code); // test positive, returned value is 40
+    console.log(code); // test positive,= 40
     const topPaddleB = parseInt($('#paddleB').css('top'));
-    console.log(topPaddleB); // test positive, returned value is 120
+    console.log(topPaddleB); // test positive,= 120
     const heightBoard = parseInt($('#board').css('height'));
-    console.log(heightBoard);
+    console.log(heightBoard); // test positive,=300
     const paddlesHeight = parseInt($('.paddles').css('height'));
-    console.log(paddlesHeight);
-    if (code == 40) {
-      if (topPaddleB <= heightBoard-paddlesHeight-10) {
-        $('#paddleB').css('top', topPaddleB + 5);
-      }
+    console.log(paddlesHeight); // test positive,=60
+    if ((code == 40) && (topPaddleB <= heightBoard-paddlesHeight-10))  {
+      $('#paddleB').css('top', topPaddleB + 5);
     }
   });
-  // $(document).one('keyup', paddleUp);
+
+  //move paddle A down when pressing a
+  $(document).on('keydown', function(e) {
+    const code = e.keyCode;
+    console.log(code); // test positive,=65
+    const topPaddleA = parseInt($('#paddleA').css('top'));
+    console.log(topPaddleA); // test positive,=120
+    const heightBoard = parseInt($('#board').css('height'));
+    console.log(heightBoard); // test positive,=300
+    const paddlesHeight = parseInt($('.paddles').css('height'));
+    console.log(paddlesHeight); //test positive,=60
+    if ((code == 65) && (topPaddleA <= heightBoard-paddlesHeight-10)) {
+      $('#paddleA').css('top', topPaddleA + 5);
+    }
+  });
+
+  //Upwards movements
+  //move paddle B up when pressing up arrow
+  $(document).on('keyup', function(e) {
+    const code = e.keyCode;
+    console.log(code); // test positive,=38
+    const topPaddleB = parseInt($('#paddleB').css('top'));
+    console.log(topPaddleB); // test positive,=120
+    if ((code == 38) && (topPaddleB >= 5)) {
+      $('#paddleB').css('top', topPaddleB - 5);
+    }
+  });
+
+  //move paddle A up when pressing q
+  $(document).on('keyup', function(e) {
+    const code = e.keyCode;
+    console.log(code); // test positive,=40
+    const topPaddleA = parseInt($('#paddleA').css('top'));
+    console.log(topPaddleA); // test positive,=120
+    if ((code == 81) && (topPaddleA >= 5)) {
+      $('#paddleA').css('top', topPaddleA - 5);
+    }
+  });
 
   //setInterval to keep playing undefinitely
   // setInterval(, 10);
