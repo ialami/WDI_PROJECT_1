@@ -46,6 +46,7 @@ This is the MVP
 Potential for scale-up:
 - display the score and play games first to 11 or first to 21
 - Add sounds of chinese players shouting everytime it hits paddle A or B (that can be really funny to be honest)
+- Give an acceleration to the ball by incrementing it at every collision with a paddle.
 
 */
 
@@ -54,7 +55,7 @@ const directionVector = {
   x: 1,
   y: 1
 };
-let ballPosition = {
+const ballPosition = {
   x: 285,
   y: 135
 };
@@ -118,7 +119,7 @@ $(() => {
   });
 
   // function startOfGame () {
-  //   //send the ball to a random position, the problem that I have with that is that I want it to be executed just once, rather than every 10ms. So it should not be in the setInterval. So maybe that should be before the setInterval function. In order to work just put it inside the setInterval.
+  // //   //send the ball to a random position, the problem that I have with that is that I want it to be executed just once, rather than every 10ms. So it should not be in the setInterval. So maybe that should be before the setInterval function. In order to work just put it inside the setInterval.
   //   ballPosition.x = ballPosition.x + speedBall * directionVector.x;
   //   ballPosition.y = ballPosition.y + speedBall * directionVector.y;
   //   const randomPosition = {
@@ -148,9 +149,6 @@ $(() => {
     const $outsidePaddleA = parseInt($('#paddleA').css('left'));
     const $insidePaddleA = $widthPaddles + $outsidePaddleA;
     const $insidePaddleB = parseInt($('#paddleB').css('left'));
-
-
-
     // console.log($topBall); //test positive, =135
     // console.log($leftBall);//test positive, =285
     // console.log($diameterBall);//test positive, =30
@@ -164,7 +162,7 @@ $(() => {
 
 
 
-    //updating the position of the ball at each time interval lambda, put that inside all the if statements. Might refactore it later using updateBallPosition() {}.
+    //updating the position of the ball at each time interval lambda. Might refactore it later using updateBallPosition() {}.
     //for example,
     ballPosition.x = ballPosition.x + speedBall * directionVector.x;
     ballPosition.y = ballPosition.y + speedBall * directionVector.y;
@@ -185,20 +183,20 @@ $(() => {
 
     //check collision with rightBorder;
     if ($leftBall >= $widthBoard - $diameterBall) {
-      directionVector.x = -1;// to be deleted
-      // $('#ball').css({
-      //   'left': ballPosition.x,
-      //   'top': ballPosition.y
-      // });
+      // directionVector.x = -1;// to be deleted
+      $('#ball').css({
+        'left': 285,
+        'top': 135
+      });
     }
 
     //check collision with leftBorder;
     if ($leftBall <= 0) {
-      directionVector.x = 1;// to be deleted
-      // $('#ball').css({
-      //   'left': ballPosition.x,
-      //   'top': ballPosition.y
-      // });
+      // directionVector.x = 1;// to be deleted
+      $('#ball').css({
+        'left': 285,
+        'top': 135
+      });
     }
 
     // check collision with paddleA
@@ -210,6 +208,13 @@ $(() => {
     if (($leftBall >= $insidePaddleB - $diameterBall) && ($topBall >= $topPaddleB) && ($topBall <= $bottomPaddleB)) {
       directionVector.x = -1;
     }
+
+    /* Problems:
+    1) when I press 'a' and 'arowdown' it goes down continusouly but not for 'q' and 'arrowup'
+    2) I can't manage to reset the position of the ball with the right and left borders
+    3) Sometimes depending the ball goes through a paddle before being hit back, because of the angle of collision
+    4) Problems when activating the random start of ball
+    */
 
   }, 10);
 
