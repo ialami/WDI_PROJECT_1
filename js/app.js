@@ -51,6 +51,14 @@ Potential for scale-up:
 */
 
 //declare global variables
+const directionVector = {
+  x: 1,
+  y: 1
+};
+let ballPosition = {
+  x: 285,
+  y: 135
+};
 
 $(() => {
   // declare JQuery variables
@@ -110,10 +118,34 @@ $(() => {
   });
 
   //setInterval to keep playing undefinitely
-  setInterval(ballMovement, 10);
+  setInterval(() => {
+    const speedBall = 1;
+
+    //updating the position of the ball at each time interval lambda
+    ballPosition.x = ballPosition.x + speedBall * directionVector.x;
+    ballPosition.y = ballPosition.y + speedBall * directionVector.y;
+    $('#ball').css({
+      'left': ballPosition.x,
+      'top': ballPosition.y
+    });
+  }, 10);
+
 });
 
-ballMovement() {
+
+//variales: convert variables in objects as much as you can, this way it is going to be cleaner
+// const topBorderX;
+// const topBorderY;
+// const bottomBorderX;
+// const bottomBorderY;
+// const rightBorderX;
+// const rightBorderY;
+// const leftBorderX;
+// const leftBorderY;
+// const lineAy;
+// const lineBy;
+
+//Inside Ball Movement function()
 //   check collision using if statements, or better using a switch statement.
 //
 //     give the ball a random direction at start
@@ -141,7 +173,3 @@ ballMovement() {
 //
 // note that there is an action that is repeated, which is to put the ball back in the middle, this can therefore be a function updateBallPosition () {}.
 //
-//   inside all the if, keep incrementing the position of the ball using the formula:
-//   p(t=2)[x] = p(t=1)[x] + speed * direction[x];
-//   p(t=2)[y] = p(t=1)[y] + speed * direction[y];
-}
