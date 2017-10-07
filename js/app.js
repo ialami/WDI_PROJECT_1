@@ -139,11 +139,29 @@ $(() => {
     const $diameterBall = parseInt($('#ball').css('border-radius'));
     const $heightBoard = parseInt($('#board').css('height'));
     const $widthBoard = parseInt($('#board').css('width'));
+    const $topPaddleA = parseInt($('#paddleA').css('top'));
+    const $topPaddleB = parseInt($('#paddleB').css('top'));
+    const $heightPaddles = parseInt($('.paddles').css('height'));
+    const $bottomPaddleA = $topPaddleA + $heightPaddles;
+    const $bottomPaddleB = $topPaddleB + $heightPaddles;
+    const $widthPaddles = parseInt($('.paddles').css('width'));
+    const $outsidePaddleA = parseInt($('#paddleA').css('left'));
+    const $insidePaddleA = $widthPaddles + $outsidePaddleA;
+    const $insidePaddleB = parseInt($('#paddleB').css('left'));
+
+
+
     // console.log($topBall); //test positive, =135
     // console.log($leftBall);//test positive, =285
     // console.log($diameterBall);//test positive, =30
-    // console.log($heightBoard);//test positive, =300
-    // console.log($widthBoard);//test positive, = 600
+    // // console.log($heightBoard);//test positive, =300
+    // console.log($widthBoard);//test positive, =600
+    // console.log($topPaddleA);//test positive, =120
+    // console.log($topPaddleB);//test positive, =120
+    // console.log($heightPaddle);//test positive, =60
+    // console.log($bottomPaddleA);//test positive, =180
+    // console.log($bottomPaddleB);//test positive, =180
+
 
 
     //updating the position of the ball at each time interval lambda, put that inside all the if statements. Might refactore it later using updateBallPosition() {}.
@@ -156,29 +174,42 @@ $(() => {
     });
 
     // check collision with bottomBorder
-    // if top of the ball >= boardheight - borderradius
-    // then directionVector.y = -1;
     if ($topBall >= $heightBoard - $diameterBall) {
       directionVector.y = -1;
     }
 
     //check collision with topBorder
-    //if top <= 0,
-    //then directionVector.y = 1;
+    if ($topBall <= 0) {
+      directionVector.y = 1;
+    }
 
     //check collision with rightBorder;
-    //if left >= boardwidth - borderradius;
-    // then $('#ball').css({
-    //   'left': 135px,
-    //   'top': 285px
-    // });
+    if ($leftBall >= $widthBoard - $diameterBall) {
+      directionVector.x = -1;// to be deleted
+      // $('#ball').css({
+      //   'left': ballPosition.x,
+      //   'top': ballPosition.y
+      // });
+    }
 
     //check collision with leftBorder;
-    //if left <= 0;
-    // then $('#ball').css({
-    //   'left': 135px,
-    //   'top': 285px
-    // });
+    if ($leftBall <= 0) {
+      directionVector.x = 1;// to be deleted
+      // $('#ball').css({
+      //   'left': ballPosition.x,
+      //   'top': ballPosition.y
+      // });
+    }
+
+    //check collision with paddleA
+    if (($leftBall <= $insidePaddleA) && ($topBall >= $topPaddleA) && ($topBall <= $bottomPaddleA)) {
+      directionVector.x = 1;
+    }
+
+    //check collision with paddleB
+    if (($leftBall >= $widthBoard - $insidePaddleB - $diameterBall) && ($topBall >= $topPaddleB) && ($topBall <= $bottomPaddleB)) {
+      directionVector.x = -1;
+    }
 
 
   }, 10);
