@@ -134,6 +134,18 @@ $(() => {
   //setInterval to check for collision and keep bouncing the ball off
   setInterval(() => {
 
+    const $topBall = parseInt($('#ball').css('top'));
+    const $leftBall = parseInt($('#ball').css('left'));
+    const $diameterBall = parseInt($('#ball').css('border-radius'));
+    const $heightBoard = parseInt($('#board').css('height'));
+    const $widthBoard = parseInt($('#board').css('width'));
+    // console.log($topBall); //test positive, =135
+    // console.log($leftBall);//test positive, =285
+    // console.log($diameterBall);//test positive, =30
+    // console.log($heightBoard);//test positive, =300
+    // console.log($widthBoard);//test positive, = 600
+
+
     //updating the position of the ball at each time interval lambda, put that inside all the if statements. Might refactore it later using updateBallPosition() {}.
     //for example,
     ballPosition.x = ballPosition.x + speedBall * directionVector.x;
@@ -143,9 +155,12 @@ $(() => {
       'top': ballPosition.y
     });
 
-    //check collision with bottomBorder
-    //if top of the ball >= boardheight - borderradius
-    //then directionVector.y = -1;
+    // check collision with bottomBorder
+    // if top of the ball >= boardheight - borderradius
+    // then directionVector.y = -1;
+    if ($topBall >= $heightBoard - $diameterBall) {
+      directionVector.y = -1;
+    }
 
     //check collision with topBorder
     //if top <= 0,
