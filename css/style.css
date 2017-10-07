@@ -47,9 +47,12 @@ p {
 }
 
 #ball {
-  /*border: 5px solid green;
-  background-color: maroon;
+  border: 1px solid white;
+  background-color: rgba(191, 191, 63, 0.2);
   width: 30px;
   height: 30px;
-  border-radius: 30px;*/
+  border-radius: 30px;
+  position: absolute;
+  top: 135px;
+  left: 285px;
 }

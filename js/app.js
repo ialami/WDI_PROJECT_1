@@ -51,14 +51,6 @@ Potential for scale-up:
 */
 
 //declare global variables
-// assign keys
-// const keys = {
-//   up: 38,
-//   down: 40,
-//   q: 81,
-//   a: 65
-// };
-// const pressedKeys = [];
 
 $(() => {
   // declare JQuery variables
@@ -118,25 +110,10 @@ $(() => {
   });
 
   //setInterval to keep playing undefinitely
-  // setInterval(, 10);
+  setInterval(ballMovement, 10);
 });
 
-//keyCode to get the code of the key
-//JQuery event keypress
-
-// paddleMovemement() {
-//   //keydown related function
-//     //move paddle A or B (might use this or e.target) down
-//     //surely use an animated event for the movement?
-//   //keyup related function
-//     //move paddle A or B (might use this or e.target) up
-//     //surely use an animated event for the movement
-// }
-
-// paddleDown(e) {
-// }
-
-// ballMovement() {
+ballMovement() {
 //   check collision using if statements, or better using a switch statement.
 //
 //     give the ball a random direction at start
@@ -167,4 +144,4 @@ $(() => {
 //   inside all the if, keep incrementing the position of the ball using the formula:
 //   p(t=2)[x] = p(t=1)[x] + speed * direction[x];
 //   p(t=2)[y] = p(t=1)[y] + speed * direction[y];
-// }
+}
