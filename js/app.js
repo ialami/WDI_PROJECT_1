@@ -34,13 +34,12 @@ if the ball hits one of the borders, then the x-direction changes, but the y-dir
 There are going to be 4 main events, when you press the arrow up or down (say for paddle A) and if you press two other key Q and A (say for paddle B). We also know that each key on the keyboard has a code, this is therefore not a problem. So basically that can be broken down into 2 events either up or down. If you press the up arrow and Q it respectively goes up for paddles A and B. If you press the down arrow and A, it goes respectively goes down for paddles A and B. All of these can be grouped into one function, which is basically the movement of the paddles.
 
 Events are:
-- $(XYZ).on('keydown', function ())
-- $(XYZ).on('keyup', function ())
-XYZ should be the whole document, or window.
+- $(document).on('keydown', function ())
+- $(document).on('keyup', function ())
 
 The next function can be the collision, which will trigger the movement of the ball
 
-And all of that is done within a set interval of lambda ms. So each lambda ms, it performs the function of moving the paddles and of moving the ball according to the collision. Lamba must be small enough so that it does not miss collisions. Obviously there is always going to be some collisions that are going to be missed: because lambda would have to be really small. Now I guess, the lower the interval is, the harder the game is gonna be, because you have to be more precise with the position of the paddles and because of the speed at which the ball moves. So one must find the right balance between not missing the collisions and not making the game too hard.
+And all of that is done within a set interval of lambda ms. So each lambda ms, it moves the ball according to the collision. Lamba must be small enough so that it does not miss collisions. Obviously there is always going to be some collisions that are going to be missed: because lambda would have to be really small.
 
 This is the MVP
 
@@ -121,9 +120,24 @@ $(() => {
   setInterval(() => {
     const speedBall = 1;
 
-    //updating the position of the ball at each time interval lambda
     ballPosition.x = ballPosition.x + speedBall * directionVector.x;
     ballPosition.y = ballPosition.y + speedBall * directionVector.y;
+
+    //send the ball to a random position, the problem that I have with that is that I want it to be executed just once, rather than every 10ms. So it should not be in the setInterval.
+    // const randomPosition = {
+    //   x: Math.round(Math.random()*ballPosition.x),
+    //   y: Math.round(Math.random()*ballPosition.y)
+    // };
+    // $('#ball').css({
+    //   'left': randomPosition.x,
+    //   'top': randomPosition.y
+    // });
+
+
+    //updating the position of the ball at each time interval lambda, put that inside all the if statements
+    //for example,
+    // ballPosition.x = ballPosition.x + speedBall * directionVector.x;
+    // ballPosition.y = ballPosition.y + speedBall * directionVector.y;
     $('#ball').css({
       'left': ballPosition.x,
       'top': ballPosition.y
