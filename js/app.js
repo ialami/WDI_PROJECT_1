@@ -58,6 +58,7 @@ let ballPosition = {
   x: 285,
   y: 135
 };
+const speedBall = 1;
 
 $(() => {
   // declare JQuery variables
@@ -116,28 +117,27 @@ $(() => {
     }
   });
 
-  //setInterval to keep playing undefinitely
+  // function startOfGame () {
+  //   //send the ball to a random position, the problem that I have with that is that I want it to be executed just once, rather than every 10ms. So it should not be in the setInterval. So maybe that should be before the setInterval function. In order to work just put it inside the setInterval.
+  //   ballPosition.x = ballPosition.x + speedBall * directionVector.x;
+  //   ballPosition.y = ballPosition.y + speedBall * directionVector.y;
+  //   const randomPosition = {
+  //     x: Math.round(Math.random()*ballPosition.x),
+  //     y: Math.round(Math.random()*ballPosition.y)
+  //   };
+  //   $('#ball').css({
+  //     'left': randomPosition.x,
+  //     'top': randomPosition.y
+  //   });
+  // }
+
+  //setInterval to check for collision and keep bouncing the ball off
   setInterval(() => {
-    const speedBall = 1;
-
-    ballPosition.x = ballPosition.x + speedBall * directionVector.x;
-    ballPosition.y = ballPosition.y + speedBall * directionVector.y;
-
-    //send the ball to a random position, the problem that I have with that is that I want it to be executed just once, rather than every 10ms. So it should not be in the setInterval.
-    // const randomPosition = {
-    //   x: Math.round(Math.random()*ballPosition.x),
-    //   y: Math.round(Math.random()*ballPosition.y)
-    // };
-    // $('#ball').css({
-    //   'left': randomPosition.x,
-    //   'top': randomPosition.y
-    // });
-
 
     //updating the position of the ball at each time interval lambda, put that inside all the if statements
     //for example,
-    // ballPosition.x = ballPosition.x + speedBall * directionVector.x;
-    // ballPosition.y = ballPosition.y + speedBall * directionVector.y;
+    ballPosition.x = ballPosition.x + speedBall * directionVector.x;
+    ballPosition.y = ballPosition.y + speedBall * directionVector.y;
     $('#ball').css({
       'left': ballPosition.x,
       'top': ballPosition.y
