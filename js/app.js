@@ -183,20 +183,18 @@ $(() => {
 
     //check collision with rightBorder;
     if ($leftBall >= $widthBoard - $diameterBall) {
-      // directionVector.x = -1;// to be deleted
-      $('#ball').css({
+      $('#ball').animate({
         'left': 285,
         'top': 135
-      });
+      }, 1000, 'linear');
     }
 
     //check collision with leftBorder;
     if ($leftBall <= 0) {
-      // directionVector.x = 1;// to be deleted
-      $('#ball').css({
+      $('#ball').animate({
         'left': 285,
         'top': 135
-      });
+      }, 1000, 'linear');
     }
 
     // check collision with paddleA
@@ -209,9 +207,16 @@ $(() => {
       directionVector.x = -1;
     }
 
+    // ballPosition.x = ballPosition.x + speedBall * directionVector.x;
+    // ballPosition.y = ballPosition.y + speedBall * directionVector.y;
+    // $('#ball').css({
+    //   'left': ballPosition.x,
+    //   'top': ballPosition.y
+    // });
+
     /* Problems:
     1) when I press 'a' and 'arowdown' it goes down continusouly but not for 'q' and 'arrowup'
-    2) I can't manage to reset the position of the ball with the right and left borders
+    2) I need to reload the page to re-start the game
     3) Sometimes depending the ball goes through a paddle before being hit back, because of the angle of collision
     4) Problems when activating the random start of ball
     */
