@@ -201,33 +201,19 @@ $(() => {
       // });
     }
 
-    //check collision with paddleA
-    if (($leftBall <= $insidePaddleA) && ($topBall >= $topPaddleA) && ($topBall <= $bottomPaddleA)) {
+    // check collision with paddleA
+    if (($leftBall <= $insidePaddleA) && ($topBall >= $topPaddleA) && ($topBall <= $bottomPaddleA - $diameterBall)) {
       directionVector.x = 1;
     }
 
-    //check collision with paddleB
-    if (($leftBall >= $widthBoard - $insidePaddleB - $diameterBall) && ($topBall >= $topPaddleB) && ($topBall <= $bottomPaddleB)) {
+    // check collision with paddleB
+    if (($leftBall >= $insidePaddleB - $diameterBall) && ($topBall >= $topPaddleB) && ($topBall <= $bottomPaddleB)) {
       directionVector.x = -1;
     }
-
 
   }, 10);
 
 });
-
-
-//variales: convert variables in objects as much as you can, this way it is going to be cleaner
-// const topBorderX;
-// const topBorderY;
-// const bottomBorderX;
-// const bottomBorderY;
-// const rightBorderX;
-// const rightBorderY;
-// const leftBorderX;
-// const leftBorderY;
-// const lineAy;
-// const lineBy;
 
 //Inside Ball Movement function()
 //   check collision using if statements, or better using a switch statement.
