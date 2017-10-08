@@ -133,97 +133,88 @@ $(() => {
   // }
 
   //setInterval to check for collision and keep bouncing the ball off
-  setInterval(() => {
+  setInterval(checkCollision, 10);
 
-    const $topBall = parseInt($('#ball').css('top'));
-    const $leftBall = parseInt($('#ball').css('left'));
-    const $diameterBall = parseInt($('#ball').css('border-radius'));
-    const $heightBoard = parseInt($('#board').css('height'));
-    const $widthBoard = parseInt($('#board').css('width'));
-    const $topPaddleA = parseInt($('#paddleA').css('top'));
-    const $topPaddleB = parseInt($('#paddleB').css('top'));
-    const $heightPaddles = parseInt($('.paddles').css('height'));
-    const $bottomPaddleA = $topPaddleA + $heightPaddles;
-    const $bottomPaddleB = $topPaddleB + $heightPaddles;
-    const $widthPaddles = parseInt($('.paddles').css('width'));
-    const $outsidePaddleA = parseInt($('#paddleA').css('left'));
-    const $insidePaddleA = $widthPaddles + $outsidePaddleA;
-    const $insidePaddleB = parseInt($('#paddleB').css('left'));
-    // console.log($topBall); //test positive, =135
-    // console.log($leftBall);//test positive, =285
-    // console.log($diameterBall);//test positive, =30
-    // // console.log($heightBoard);//test positive, =300
-    // console.log($widthBoard);//test positive, =600
-    // console.log($topPaddleA);//test positive, =120
-    // console.log($topPaddleB);//test positive, =120
-    // console.log($heightPaddle);//test positive, =60
-    // console.log($bottomPaddleA);//test positive, =180
-    // console.log($bottomPaddleB);//test positive, =180
-
-
-
-    //updating the position of the ball at each time interval lambda. Might refactore it later using updateBallPosition() {}.
-    //for example,
-    ballPosition.x = ballPosition.x + speedBall * directionVector.x;
-    ballPosition.y = ballPosition.y + speedBall * directionVector.y;
-    $('#ball').css({
-      'left': ballPosition.x,
-      'top': ballPosition.y
-    });
-
-    // check collision with bottomBorder
-    if ($topBall >= $heightBoard - $diameterBall) {
-      directionVector.y = -1;
-    }
-
-    //check collision with topBorder
-    if ($topBall <= 0) {
-      directionVector.y = 1;
-    }
-
-    //check collision with rightBorder;
-    if ($leftBall >= $widthBoard - $diameterBall) {
-      $('#ball').animate({
-        'left': 285,
-        'top': 135
-      }, 1000, 'linear');
-    }
-
-    //check collision with leftBorder;
-    if ($leftBall <= 0) {
-      $('#ball').animate({
-        'left': 285,
-        'top': 135
-      }, 1000, 'linear');
-    }
-
-    // check collision with paddleA
-    if (($leftBall <= $insidePaddleA) && ($topBall >= $topPaddleA) && ($topBall <= $bottomPaddleA - $diameterBall)) {
-      directionVector.x = 1;
-    }
-
-    // check collision with paddleB
-    if (($leftBall >= $insidePaddleB - $diameterBall) && ($topBall >= $topPaddleB) && ($topBall <= $bottomPaddleB)) {
-      directionVector.x = -1;
-    }
-
-    // ballPosition.x = ballPosition.x + speedBall * directionVector.x;
-    // ballPosition.y = ballPosition.y + speedBall * directionVector.y;
-    // $('#ball').css({
-    //   'left': ballPosition.x,
-    //   'top': ballPosition.y
-    // });
-
-    /* Problems:
-    1) when I press 'a' and 'arowdown' it goes down continusouly but not for 'q' and 'arrowup'
-    2) I need to reload the page to re-start the game
-    3) Sometimes depending the ball goes through a paddle before being hit back, because of the angle of collision
-    4) Problems when activating the random start of ball
-    */
-
-  }, 10);
-
+  /* Problems:
+  1) when I press 'a' and 'arowdown' it goes down continusouly but not for 'q' and 'arrowup'
+  2) I need to reload the page to re-start the game
+  3) Sometimes depending the ball goes through a paddle before being hit back, because of the angle of collision
+  4) Problems when activating the random start of ball
+  */
 });
+
+function checkCollision() {
+  const $topBall = parseInt($('#ball').css('top'));
+  const $leftBall = parseInt($('#ball').css('left'));
+  const $diameterBall = parseInt($('#ball').css('border-radius'));
+  const $heightBoard = parseInt($('#board').css('height'));
+  const $widthBoard = parseInt($('#board').css('width'));
+  const $topPaddleA = parseInt($('#paddleA').css('top'));
+  const $topPaddleB = parseInt($('#paddleB').css('top'));
+  const $heightPaddles = parseInt($('.paddles').css('height'));
+  const $bottomPaddleA = $topPaddleA + $heightPaddles;
+  const $bottomPaddleB = $topPaddleB + $heightPaddles;
+  const $widthPaddles = parseInt($('.paddles').css('width'));
+  const $outsidePaddleA = parseInt($('#paddleA').css('left'));
+  const $insidePaddleA = $widthPaddles + $outsidePaddleA;
+  const $insidePaddleB = parseInt($('#paddleB').css('left'));
+
+
+
+  //updating the position of the ball at each time interval lambda. Might refactore it later using updateBallPosition() {}.
+  //for example,
+  bounceBall();
+
+  // check collision with bottomBorder
+  if ($topBall >= $heightBoard - $diameterBall) {
+    bounceBall();
+    directionVector.y = -1;
+  }
+
+  //check collision with topBorder
+  if ($topBall <= 0) {
+    bounceBall();
+    directionVector.y = 1;
+  }
+
+  //check collision with rightBorder;
+  if ($leftBall >= $widthBoard - $diameterBall) {
+    resetBallPosition();
+  }
+
+  //check collision with leftBorder;
+  if ($leftBall <= 0) {
+    resetBallPosition();
+  }
+
+  // check collision with paddleA
+  if (($leftBall <= $insidePaddleA) && ($topBall >= $topPaddleA) && ($topBall <= $bottomPaddleA - $diameterBall)) {
+    bounceBall();
+    directionVector.x = 1;
+  }
+
+  // check collision with paddleB
+  if (($leftBall >= $insidePaddleB - $diameterBall) && ($topBall >= $topPaddleB) && ($topBall <= $bottomPaddleB)) {
+    bounceBall();
+    directionVector.x = -1;
+  }
+}
+
+function bounceBall () {
+  ballPosition.x = ballPosition.x + speedBall * directionVector.x;
+  ballPosition.y = ballPosition.y + speedBall * directionVector.y;
+  $('#ball').css({
+    'left': ballPosition.x,
+    'top': ballPosition.y
+  });
+}
+
+function resetBallPosition () {
+  $('#ball').animate({
+    'left': 285,
+    'top': 135
+  }, 1000, 'linear');
+}
 
 //Inside Ball Movement function()
 //   check collision using if statements, or better using a switch statement.
