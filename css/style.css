@@ -28,27 +28,29 @@ p {
 }
 
 .paddles {
-  border: 2px solid rgba(11,13,13, 0.7);
-  background-color: rgba(11,13,13, 0.7);
   width: 30px;
   height: 60px;
 }
 
 #paddleA {
+  border: 2px solid rgba(193,66,66, 0.8);
+  background-color: rgba(193,66,66, 0.8);
   position: absolute;
   top:120px;
   left:20px;
 }
 
 #paddleB {
+  border: 2px solid rgba(63,191,127, 0.8);
+  background-color: rgba(63,191,127, 0.8);
   position: absolute;
   top: 120px;
   right: 20px;
 }
 
 #ball {
-  border: 1px solid white;
-  background-color: rgba(191, 191, 63, 0.2);
+  border: 2px solid rgba(255, 255, 101, 0.8);
+  background-color: rgba(255, 255, 101, 0.8);
   width: 30px;
   height: 30px;
   border-radius: 30px;
