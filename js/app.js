@@ -67,51 +67,23 @@ let topPaddleA;
 let heightBoard;
 let paddlesHeight;
 let topPaddleB;
+let $paddleA;
+let $paddleB;
+let $board;
+let $paddles;
 
 const intervalNames = ['40', '38', '65', '81'];
 
-$(() => {
+$(init);
+
+function init () {
   // declare JQuery variables
+  $paddleA = $('#paddleA');
+  $paddleB = $('#paddleB');
+  $board = $('#board');
+  $paddles = $('.paddles');
 
-
-  // Downwards movements
-  // move paddle B down when press down arrow
-  $(document).on('keydown', function(e) {
-    const keyCode = e.keyCode.toString(); //convert the keyCode to a string
-    if (intervalNames.indexOf(keyCode) !== -1) {
-      // if the keyCode is not in the array
-
-      const interval = setInterval(function() {
-
-
-        console.log(e.keyCode);
-        topPaddleA = parseInt($('#paddleA').css('top'));
-        //   console.log(topPaddleA); // test positive,=120
-        heightBoard = parseInt($('#board').css('height'));
-        //   console.log(heightBoard); // test positive,=300
-        paddlesHeight = parseInt($('.paddles').css('height'));
-        //   console.log(paddlesHeight); //test positive,=60
-        topPaddleB = parseInt($('#paddleB').css('top'));
-        //   console.log(topPaddleB); // test positive,=120
-
-        if ((keyCode == 81) && (topPaddleA >= 5)) {
-          $('#paddleA').css('top', topPaddleA - 5);
-        } else if ((keyCode == 65) && (topPaddleA <= heightBoard-paddlesHeight-10)) {
-          $('#paddleA').css('top', topPaddleA + 5);
-        } else if ((keyCode == 38) && (topPaddleB >= 5)) {
-          $('#paddleB').css('top', topPaddleB - 5);
-        } else if ((keyCode == 40) && (topPaddleB <= heightBoard-paddlesHeight-10)) {
-          $('#paddleB').css('top', topPaddleB + 5);
-        }
-      }, 20); //perform function every 1ms
-
-      $(document).on('keyup', function(e) {
-        if (e.keyCode.toString() === keyCode) {
-          clearInterval(interval); //on keyup of one of the four keys, clear interval
-        }
-      });
-    }
-  });
+  $(document).on('keydown', movePaddles);
 
   // function startOfGame () {
   // //   //send the ball to a random position, the problem that I have with that is that I want it to be executed just once, rather than every 10ms. So it should not be in the setInterval. So maybe that should be before the setInterval function. In order to work just put it inside the setInterval.
@@ -136,21 +108,59 @@ $(() => {
   3) Sometimes depending the ball goes through a paddle before being hit back, because of the angle of collision
   4) Problems when activating the random start of ball
   */
-});
+}
+
+function movePaddles(e) {
+  const keyCode = e.keyCode.toString(); //convert the keyCode to a string
+  if (intervalNames.indexOf(keyCode) !== -1) {
+    // if the keyCode is not in the array
+
+
+    const interval = setInterval(function() {
+
+      console.log(e.keyCode);
+      topPaddleA = parseInt($paddleA.css('top'));
+      //   console.log(topPaddleA); // test positive,=120
+      heightBoard = parseInt($board.css('height'));
+      //   console.log(heightBoard); // test positive,=300
+      paddlesHeight = parseInt($paddles.css('height'));
+      //   console.log(paddlesHeight); //test positive,=60
+      topPaddleB = parseInt($paddleB.css('top'));
+      //   console.log(topPaddleB); // test positive,=120
+
+      if ((keyCode == 81) && (topPaddleA >= 5)) {
+        $paddleA.css('top', topPaddleA - 5);
+      } else if ((keyCode == 65) && (topPaddleA <= heightBoard-paddlesHeight-10)) {
+        $paddleA.css('top', topPaddleA + 5);
+      } else if ((keyCode == 38) && (topPaddleB >= 5)) {
+        $paddleB.css('top', topPaddleB - 5);
+      } else if ((keyCode == 40) && (topPaddleB <= heightBoard-paddlesHeight-10)) {
+        $paddleB.css('top', topPaddleB + 5);
+      }
+    }, 20); //perform function every 1ms
+
+    $(document).on('keyup', function(e) {
+      if (e.keyCode.toString() === keyCode) {
+        clearInterval(interval); //on keyup of one of the four keys, clear interval
+      }
+    });
+  }
+}
 
 function checkCollision() {
+  // remove const and put them as let
   const $topBall = parseInt($('#ball').css('top'));
   const $leftBall = parseInt($('#ball').css('left'));
   const $diameterBall = parseInt($('#ball').css('border-radius'));
   const $heightBoard = parseInt($('#board').css('height'));
   const $widthBoard = parseInt($('#board').css('width'));
-  const $topPaddleA = parseInt($('#paddleA').css('top'));
+  const $topPaddleA = parseInt($paddleA.css('top'));
   const $topPaddleB = parseInt($('#paddleB').css('top'));
   const $heightPaddles = parseInt($('.paddles').css('height'));
   const $bottomPaddleA = $topPaddleA + $heightPaddles;
   const $bottomPaddleB = $topPaddleB + $heightPaddles;
   const $widthPaddles = parseInt($('.paddles').css('width'));
-  const $outsidePaddleA = parseInt($('#paddleA').css('left'));
+  const $outsidePaddleA = parseInt($paddleA.css('left'));
   const $insidePaddleA = $widthPaddles + $outsidePaddleA;
   const $insidePaddleB = parseInt($('#paddleB').css('left'));
 
