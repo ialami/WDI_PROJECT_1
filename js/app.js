@@ -61,60 +61,55 @@ const ballPosition = {
 };
 const speedBall = 1;
 
+let checkCollide;
+
+let topPaddleA;
+let heightBoard;
+let paddlesHeight;
+let topPaddleB;
+
+const intervalNames = ['40', '38', '65', '81'];
+
 $(() => {
   // declare JQuery variables
 
-  //Downwards movements
-  //move paddle B down when press down arrow
+
+  // Downwards movements
+  // move paddle B down when press down arrow
   $(document).on('keydown', function(e) {
-    const code = e.keyCode;
-    console.log(code); // test positive,= 40
-    const topPaddleB = parseInt($('#paddleB').css('top'));
-    console.log(topPaddleB); // test positive,= 120
-    const heightBoard = parseInt($('#board').css('height'));
-    console.log(heightBoard); // test positive,=300
-    const paddlesHeight = parseInt($('.paddles').css('height'));
-    console.log(paddlesHeight); // test positive,=60
-    if ((code == 40) && (topPaddleB <= heightBoard-paddlesHeight-10))  {
-      $('#paddleB').css('top', topPaddleB + 5);
-    }
-  });
+    const keyCode = e.keyCode.toString(); //convert the keyCode to a string
+    if (intervalNames.indexOf(keyCode) !== -1) {
+      // if the keyCode is not in the array
 
-  //move paddle A down when pressing a
-  $(document).on('keydown', function(e) {
-    const code = e.keyCode;
-    console.log(code); // test positive,=65
-    const topPaddleA = parseInt($('#paddleA').css('top'));
-    console.log(topPaddleA); // test positive,=120
-    const heightBoard = parseInt($('#board').css('height'));
-    console.log(heightBoard); // test positive,=300
-    const paddlesHeight = parseInt($('.paddles').css('height'));
-    console.log(paddlesHeight); //test positive,=60
-    if ((code == 65) && (topPaddleA <= heightBoard-paddlesHeight-10)) {
-      $('#paddleA').css('top', topPaddleA + 5);
-    }
-  });
+      const interval = setInterval(function() {
 
-  //Upwards movements
-  //move paddle B up when pressing up arrow
-  $(document).on('keyup', function(e) {
-    const code = e.keyCode;
-    console.log(code); // test positive,=38
-    const topPaddleB = parseInt($('#paddleB').css('top'));
-    console.log(topPaddleB); // test positive,=120
-    if ((code == 38) && (topPaddleB >= 5)) {
-      $('#paddleB').css('top', topPaddleB - 5);
-    }
-  });
 
-  //move paddle A up when pressing q
-  $(document).on('keyup', function(e) {
-    const code = e.keyCode;
-    console.log(code); // test positive,=40
-    const topPaddleA = parseInt($('#paddleA').css('top'));
-    console.log(topPaddleA); // test positive,=120
-    if ((code == 81) && (topPaddleA >= 5)) {
-      $('#paddleA').css('top', topPaddleA - 5);
+        console.log(e.keyCode);
+        topPaddleA = parseInt($('#paddleA').css('top'));
+        //   console.log(topPaddleA); // test positive,=120
+        heightBoard = parseInt($('#board').css('height'));
+        //   console.log(heightBoard); // test positive,=300
+        paddlesHeight = parseInt($('.paddles').css('height'));
+        //   console.log(paddlesHeight); //test positive,=60
+        topPaddleB = parseInt($('#paddleB').css('top'));
+        //   console.log(topPaddleB); // test positive,=120
+
+        if ((keyCode == 81) && (topPaddleA >= 5)) {
+          $('#paddleA').css('top', topPaddleA - 5);
+        } else if ((keyCode == 65) && (topPaddleA <= heightBoard-paddlesHeight-10)) {
+          $('#paddleA').css('top', topPaddleA + 5);
+        } else if ((keyCode == 38) && (topPaddleB >= 5)) {
+          $('#paddleB').css('top', topPaddleB - 5);
+        } else if ((keyCode == 40) && (topPaddleB <= heightBoard-paddlesHeight-10)) {
+          $('#paddleB').css('top', topPaddleB + 5);
+        }
+      }, 20); //perform function every 1ms
+
+      $(document).on('keyup', function(e) {
+        if (e.keyCode.toString() === keyCode) {
+          clearInterval(interval); //on keyup of one of the four keys, clear interval
+        }
+      });
     }
   });
 
@@ -133,11 +128,11 @@ $(() => {
   // }
 
   //setInterval to check for collision and keep bouncing the ball off
-  setInterval(checkCollision, 10);
+  checkCollide = setInterval(checkCollision, 10);
 
   /* Problems:
-  1) when I press 'a' and 'arowdown' it goes down continusouly but not for 'q' and 'arrowup'
-  2) I need to reload the page to re-start the game
+  1) Keys don't run simultenaously
+  2) I need to reload the page to re-start the game, maybe put a start button?
   3) Sometimes depending the ball goes through a paddle before being hit back, because of the angle of collision
   4) Problems when activating the random start of ball
   */
@@ -179,12 +174,16 @@ function checkCollision() {
 
   //check collision with rightBorder;
   if ($leftBall >= $widthBoard - $diameterBall) {
+    console.log('you lost from the right');
     resetBallPosition();
+    clearInterval(checkCollide);
   }
 
   //check collision with leftBorder;
   if ($leftBall <= 0) {
+    console.log('you lost from the left');
     resetBallPosition();
+    clearInterval(checkCollide);
   }
 
   // check collision with paddleA
