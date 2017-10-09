@@ -75,6 +75,13 @@ let $ball;
 
 const intervalNames = ['40', '38', '65', '81'];
 
+let $button;
+
+let $playerone;
+let $playertwo;
+let scorep1=0;
+let scorep2=0;
+
 $(init);
 
 function init () {
@@ -84,6 +91,10 @@ function init () {
   $board = $('#board');
   $paddles = $('.paddles');
   $ball = $('#ball');
+  $button = $('#button');
+
+  $playerone = $('.playerone');
+  $playertwo = $('.playertwo');
 
   $(document).on('keydown', movePaddles);
 
@@ -100,7 +111,7 @@ function init () {
   //     'top': randomPosition.y
   //   });
   // }
-
+  $button.on('click', bounceBall);
   //setInterval to check for collision and keep bouncing the ball off
   checkCollide = setInterval(checkCollision, 3);
 
@@ -185,6 +196,16 @@ function checkCollision() {
     console.log('you lost from the right');
     resetBallPosition();
     clearInterval(checkCollide);
+    scorep1 = scorep1 + 1;
+    $playerone.html(scorep1);
+    console.log(scorep1);
+    if (scorep1===11) {
+      alert('Player 1 wins');
+      $playerone.html('');
+      $playertwo.html('');
+      scorep1=0;
+      scorep2=0;
+    }
   }
 
   //check collision with leftBorder;
@@ -192,6 +213,16 @@ function checkCollision() {
     console.log('you lost from the left');
     resetBallPosition();
     clearInterval(checkCollide);
+    scorep2 = scorep2 + 1;
+    $playertwo.html(scorep2);
+    console.log(scorep2);
+    if (scorep2===11) {
+      alert('Player 2 wins');
+      $playerone.html('');
+      $playertwo.html('');
+      scorep1=0;
+      scorep2=0;
+    }
   }
 
   // check collision with paddleA
