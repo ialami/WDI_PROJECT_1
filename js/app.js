@@ -63,14 +63,14 @@ const speedBall = 1;
 
 let checkCollide;
 
-let topPaddleA;
-let heightBoard;
-let paddlesHeight;
-let topPaddleB;
 let $paddleA;
 let $paddleB;
+let topPaddleA;
+let topPaddleB;
 let $board;
+let heightBoard;
 let $paddles;
+let paddlesHeight;
 let $ball;
 
 const intervalNames = ['40', '38', '65', '81'];
@@ -102,7 +102,7 @@ function init () {
   // }
 
   //setInterval to check for collision and keep bouncing the ball off
-  checkCollide = setInterval(checkCollision, 10);
+  checkCollide = setInterval(checkCollision, 3);
 
   /* Problems:
   2) I need to reload the page to re-start the game, maybe put a start button?
