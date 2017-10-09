@@ -71,6 +71,7 @@ let $paddleA;
 let $paddleB;
 let $board;
 let $paddles;
+let $ball;
 
 const intervalNames = ['40', '38', '65', '81'];
 
@@ -82,6 +83,7 @@ function init () {
   $paddleB = $('#paddleB');
   $board = $('#board');
   $paddles = $('.paddles');
+  $ball = $('#ball');
 
   $(document).on('keydown', movePaddles);
 
@@ -103,7 +105,6 @@ function init () {
   checkCollide = setInterval(checkCollision, 10);
 
   /* Problems:
-  1) Keys don't run simultenaously
   2) I need to reload the page to re-start the game, maybe put a start button?
   3) Sometimes depending the ball goes through a paddle before being hit back, because of the angle of collision
   4) Problems when activating the random start of ball
@@ -148,23 +149,20 @@ function movePaddles(e) {
 }
 
 function checkCollision() {
-  // remove const and put them as let
-  const $topBall = parseInt($('#ball').css('top'));
-  const $leftBall = parseInt($('#ball').css('left'));
-  const $diameterBall = parseInt($('#ball').css('border-radius'));
-  const $heightBoard = parseInt($('#board').css('height'));
-  const $widthBoard = parseInt($('#board').css('width'));
+  const $topBall = parseInt($ball.css('top'));
+  const $leftBall = parseInt($ball.css('left'));
+  const $diameterBall = parseInt($ball.css('border-radius'));
+  const $heightBoard = parseInt($board.css('height'));
+  const $widthBoard = parseInt($board.css('width'));
   const $topPaddleA = parseInt($paddleA.css('top'));
-  const $topPaddleB = parseInt($('#paddleB').css('top'));
-  const $heightPaddles = parseInt($('.paddles').css('height'));
+  const $topPaddleB = parseInt($paddleB.css('top'));
+  const $heightPaddles = parseInt($paddles.css('height'));
   const $bottomPaddleA = $topPaddleA + $heightPaddles;
   const $bottomPaddleB = $topPaddleB + $heightPaddles;
-  const $widthPaddles = parseInt($('.paddles').css('width'));
+  const $widthPaddles = parseInt($paddles.css('width'));
   const $outsidePaddleA = parseInt($paddleA.css('left'));
   const $insidePaddleA = $widthPaddles + $outsidePaddleA;
-  const $insidePaddleB = parseInt($('#paddleB').css('left'));
-
-
+  const $insidePaddleB = parseInt($paddleB.css('left'));
 
   //updating the position of the ball at each time interval lambda. Might refactore it later using updateBallPosition() {}.
   //for example,
@@ -209,7 +207,7 @@ function checkCollision() {
   }
 }
 
-function bounceBall () {
+function bounceBall () { //update position of the ball
   ballPosition.x = ballPosition.x + speedBall * directionVector.x;
   ballPosition.y = ballPosition.y + speedBall * directionVector.y;
   $('#ball').css({
