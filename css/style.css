@@ -3,28 +3,49 @@
 }
 
 body {
+  background-color: rgba(102, 204, 255, 0.4);
+}
+#logo {
+  margin: 0 auto;
+  height: 100px;
+  width: 100px;
+}
+
+#logo img {
+  width: 100px;
+  height: 100px;
+}
+
+body {
 }
 
 h1 {
-  border: 10px solid black;
-  margin: 10px auto;
-  background-color: red;
+  margin: auto;
+  background-color: rgb(102, 204, 255);
   text-align: center;
+  font-family: Impact, fantasy;
+  font-size: 40px;
+  color: white;
+  padding: 10px;
 }
 
 p {
-  border: 5px solid blue;
-  background-color: green;
+  color: white;
+  background-color: rgba(102, 204, 255, 0.8);
+  font-family: Impact, fantasy;
+  padding: 10px;
+  line-height: 200%;
 }
 
 #board {
-  border: 3px solid rgba(11,13,13, 0.7);
-  background-color: rgba(85, 173, 195, 0.7);
+  border: 3px solid white;
+  background-color: rgba(102, 204, 255, 0.8);
   width: 600px;
   height: 300px;
   position: relative;
-  top: 80px;
-  margin: auto;
+  top: 100px;
+  margin: auto 50px;
+  float: left;
 }
 
 .paddles {
@@ -67,35 +88,53 @@ padding: 20px;
 }*/
 
 #button {
-  border: 2px solid blue;
-  background-color: red;
+  background-color: white;
   text-align: center;
   position: absolute;
-  left: 150px;
+  margin: 10px auto;
+  left: auto;
   padding: 10px;
-  width: 200px;
-  height: 50px;
+  width: 480px;
+  height: 80px;
+  font-family: Impact, fantasy;
+  font-size: 60px;
+  color: rgba(102, 204, 255, 0.8);
+  line-height: 50%;
+  position: absolute;
 }
 
 .section {
-  margin: 120px auto;
+  margin: 60px auto;
   width: 500px;
-  height: 150px;
-  border: 3px solid green;
+  height: 400px;
   padding: 10px;
   position: relative;
+  font-family: Impact, fantasy;
+  float: right;
+  margin: auto 50px;
+  top: 100px;
+  /*background-color: rgba(102, 204, 255, 0.8);*/
+  color: white;
 }
-
-/*.score {
-padding: 10px;
-}*/
 
 #scoreBoard {
   padding: 10px;
   position: relative;
   top: 70px;
+  line-height: 200%;
+  font-size: 50px;
 }
-/*#title {
-margin: 0 auto;
-text-align: center;
-}*/*/
+
+#playerone {
+  color: rgba(193,66,66, 0.8);
+}
+
+#playertwo {
+  color: rgba(63,191,127, 0.8);
+}
+
+#button:hover {
+  color: white;
+  background-color: rgba(102, 204, 255, 0.8);
+  cursor: pointer;
+}
