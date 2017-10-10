@@ -5,6 +5,7 @@
 body {
   background-color: rgba(102, 204, 255, 0.4);
 }
+
 #logo {
   margin: 0 auto;
   height: 100px;
@@ -14,9 +15,6 @@ body {
 #logo img {
   width: 100px;
   height: 100px;
-}
-
-body {
 }
 
 h1 {
@@ -100,7 +98,6 @@ padding: 20px;
   font-size: 60px;
   color: rgba(102, 204, 255, 0.8);
   line-height: 50%;
-  position: absolute;
 }
 
 .section {
@@ -137,4 +134,32 @@ padding: 20px;
   color: white;
   background-color: rgba(102, 204, 255, 0.8);
   cursor: pointer;
+}
+
+#alert {
+  background-color: white;
+  color: rgba(102, 204, 255, 0.8);
+  width: 300px;
+  height: 180px;
+  left: 50%;
+  top: 50%;
+  position: absolute;
+  font-family: Impact, fantasy;
+  display: none;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 20px;
+}
+
+.message {
+  margin: 40px;
+}
+
+#ok {
+  background-color: white;
+  text-align: center;
+  font-family: Impact, fantasy;
+  width: 50px;
+  height: 30px;
+  color: rgba(102, 204, 255, 0.8);
 }

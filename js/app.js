@@ -82,6 +82,9 @@ let $playertwo;
 let scorep1=0;
 let scorep2=0;
 
+let $alert;
+let $ok;
+
 $(init);
 
 function init () {
@@ -204,8 +207,8 @@ function checkCollision() {
     scorep1 = scorep1 + 1;
     $playerone.html(scorep1);
     console.log(scorep1);
-    if (scorep1===11) {
-      alert('Player 1 wins');
+    if (scorep1===2) {
+      displayAlert('1');
       $playerone.html('0');
       $playertwo.html('0');
       scorep1=0;
@@ -222,8 +225,8 @@ function checkCollision() {
     scorep2 = scorep2 + 1;
     $playertwo.html(scorep2);
     console.log(scorep2);
-    if (scorep2===11) {
-      alert('Player 2 wins');
+    if (scorep2===2) {
+      displayAlert('2');
       $playerone.html('0');
       $playertwo.html('0');
       scorep1=0;
@@ -296,3 +299,16 @@ function resetBallPosition () {
 //
 // note that there is an action that is repeated, which is to put the ball back in the middle, this can therefore be a function updateBallPosition () {}.
 //
+
+function displayAlert (player) {
+  $alert = $('#alert');
+  $ok = $('#ok');
+  $alert.css('display', 'block'); //make the div appear
+  $alert.find('.message').html(`Well done! Player ${player} won`); //display message on the alert
+  $ok.on('click', hideAlert);
+}
+
+function hideAlert () {
+  $alert.css('display', 'none'); //make the div disappear
+  // $alert.remove(); //make the div disappear
+}
