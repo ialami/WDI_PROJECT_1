@@ -55,7 +55,7 @@ const directionVector = {
   x: 1,
   y: 1
 };
-const ballPosition = {
+let ballPosition = {
   x: 285,
   y: 135
 };
@@ -111,9 +111,12 @@ function init () {
   //     'top': randomPosition.y
   //   });
   // }
-  $button.on('click', bounceBall);
+  $button.on('click', playGame);
   //setInterval to check for collision and keep bouncing the ball off
-  checkCollide = setInterval(checkCollision, 3);
+
+  function playGame() {
+    checkCollide = setInterval(checkCollision, 3);
+  }
 
   /* Problems:
   2) I need to reload the page to re-start the game, maybe put a start button?
@@ -121,6 +124,7 @@ function init () {
   4) Problems when activating the random start of ball
   */
 }
+// checkCollide = setInterval(checkCollision, 3);
 
 function movePaddles(e) {
   const keyCode = e.keyCode.toString(); //convert the keyCode to a string
@@ -160,6 +164,7 @@ function movePaddles(e) {
 }
 
 function checkCollision() {
+  console.log($ball.position());
   const $topBall = parseInt($ball.css('top'));
   const $leftBall = parseInt($ball.css('left'));
   const $diameterBall = parseInt($ball.css('border-radius'));
@@ -195,14 +200,14 @@ function checkCollision() {
   if ($leftBall >= $widthBoard - $diameterBall) {
     console.log('you lost from the right');
     resetBallPosition();
-    clearInterval(checkCollide);
+    // clearInterval(checkCollide);
     scorep1 = scorep1 + 1;
     $playerone.html(scorep1);
     console.log(scorep1);
     if (scorep1===11) {
       alert('Player 1 wins');
-      $playerone.html('');
-      $playertwo.html('');
+      $playerone.html('0');
+      $playertwo.html('0');
       scorep1=0;
       scorep2=0;
     }
@@ -210,16 +215,17 @@ function checkCollision() {
 
   //check collision with leftBorder;
   if ($leftBall <= 0) {
+    console.log($leftBall <= 0);
     console.log('you lost from the left');
     resetBallPosition();
-    clearInterval(checkCollide);
+    // clearInterval(checkCollide);
     scorep2 = scorep2 + 1;
     $playertwo.html(scorep2);
     console.log(scorep2);
     if (scorep2===11) {
       alert('Player 2 wins');
-      $playerone.html('');
-      $playertwo.html('');
+      $playerone.html('0');
+      $playertwo.html('0');
       scorep1=0;
       scorep2=0;
     }
@@ -239,8 +245,11 @@ function checkCollision() {
 }
 
 function bounceBall () { //update position of the ball
+  console.log('im hit');
   ballPosition.x = ballPosition.x + speedBall * directionVector.x;
   ballPosition.y = ballPosition.y + speedBall * directionVector.y;
+  console.log('This is the position I work out');
+  console.log(ballPosition);
   $('#ball').css({
     'left': ballPosition.x,
     'top': ballPosition.y
@@ -248,10 +257,15 @@ function bounceBall () { //update position of the ball
 }
 
 function resetBallPosition () {
+  ballPosition = {
+    x: 285,
+    y: 135
+  };
   $('#ball').animate({
     'left': 285,
     'top': 135
   }, 1000, 'linear');
+  clearInterval(checkCollide);
 }
 
 //Inside Ball Movement function()
