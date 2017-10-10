@@ -84,6 +84,7 @@ let scorep2=0;
 
 let $alert;
 let $ok;
+let $shader;
 
 $(init);
 
@@ -303,12 +304,19 @@ function resetBallPosition () {
 function displayAlert (player) {
   $alert = $('#alert');
   $ok = $('#ok');
-  $alert.css('display', 'block'); //make the div appear
+  $shader = $('.shader');
+  $alert.css({
+    'display': 'block',
+    'opacity': 1
+  }); //make the div appear
   $alert.find('.message').html(`Well done! Player ${player} won`); //display message on the alert
+  $shader.css('opacity', 0.3);
   $ok.on('click', hideAlert);
 }
 
 function hideAlert () {
   $alert.css('display', 'none'); //make the div disappear
   // $alert.remove(); //make the div disappear
+  $shader.css('opacity', 1);
+
 }
