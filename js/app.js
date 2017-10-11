@@ -123,19 +123,13 @@ function init () {
   //   });
   // }
   $button.on('click', playGame);
-  //setInterval to check for collision and keep bouncing the ball off
 
+  //setInterval to check for collision and keep bouncing the ball off
   function playGame() {
     commentaries = new Audio('/Users/ismailalami/Development/WDI_PROJECT_1/sounds/commentaries.mp3');
     commentaries.play();
     checkCollide = setInterval(checkCollision, 3);
   }
-
-  /* Problems:
-  2) I need to reload the page to re-start the game, maybe put a start button?
-  3) Sometimes depending the ball goes through a paddle before being hit back, because of the angle of collision
-  4) Problems when activating the random start of ball
-  */
 }
 // checkCollide = setInterval(checkCollision, 3);
 
@@ -151,15 +145,10 @@ function movePaddles(e) {
 
     const interval = setInterval(function() {
 
-      console.log(e.keyCode);
       topPaddleA = parseInt($paddleA.css('top'));
-      //   console.log(topPaddleA); // test positive,=120
       heightBoard = parseInt($board.css('height'));
-      //   console.log(heightBoard); // test positive,=300
       paddlesHeight = parseInt($paddles.css('height'));
-      //   console.log(paddlesHeight); //test positive,=60
       topPaddleB = parseInt($paddleB.css('top'));
-      //   console.log(topPaddleB); // test positive,=120
 
       if ((keyCode == 81) && (topPaddleA >= 5)) {
         $paddleA.css('top', topPaddleA - 5);
@@ -181,7 +170,7 @@ function movePaddles(e) {
 }
 
 function checkCollision() {
-  console.log($ball.position());
+  // console.log($ball.position());
   const $topBall = parseInt($ball.css('top'));
   const $leftBall = parseInt($ball.css('left'));
   const $diameterBall = parseInt($ball.css('border-radius'));
@@ -215,38 +204,23 @@ function checkCollision() {
 
   //check collision with rightBorder;
   if ($leftBall >= $widthBoard - $diameterBall) {
-    console.log('you lost from the right');
-    commentaries.pause();
+    pauseCommentaries();
     resetBallPosition();
-    // clearInterval(checkCollide);
-    scorep1 = scorep1 + 1;
-    $playerone.html(scorep1);
-    console.log(scorep1);
+    updateScore(scorep1, $playerone);
     if (scorep1===2) {
       displayAlert('1');
-      $playerone.html('0');
-      $playertwo.html('0');
-      scorep1=0;
-      scorep2=0;
+      resetScore();
     }
   }
 
   //check collision with leftBorder;
   if ($leftBall <= 0) {
-    console.log($leftBall <= 0);
-    console.log('you lost from the left');
-    commentaries.pause();
+    pauseCommentaries();
     resetBallPosition();
-    // clearInterval(checkCollide);
-    scorep2 = scorep2 + 1;
-    $playertwo.html(scorep2);
-    console.log(scorep2);
+    updateScore(scorep2, $playertwo);
     if (scorep2===2) {
       displayAlert('2');
-      $playerone.html('0');
-      $playertwo.html('0');
-      scorep1=0;
-      scorep2=0;
+      resetScore();
     }
   }
 
@@ -254,23 +228,20 @@ function checkCollision() {
   if (($leftBall <= $insidePaddleA) && ($topBall >= $topPaddleA) && ($topBall <= $bottomPaddleA - $diameterBall)) {
     bounceBall();
     directionVector.x = 1;
-    new Audio('/Users/ismailalami/Development/WDI_PROJECT_1/sounds/hit.mp3').play();
+    hitSound();
   }
 
   // check collision with paddleB
   if (($leftBall >= $insidePaddleB - $diameterBall) && ($topBall >= $topPaddleB) && ($topBall <= $bottomPaddleB)) {
     bounceBall();
     directionVector.x = -1;
-    new Audio('/Users/ismailalami/Development/WDI_PROJECT_1/sounds/hit.mp3').play();
+    hitSound();
   }
 }
 
 function bounceBall () { //update position of the ball
-  console.log('im hit');
   ballPosition.x = ballPosition.x + speedBall * directionVector.x;
   ballPosition.y = ballPosition.y + speedBall * directionVector.y;
-  console.log('This is the position I work out');
-  console.log(ballPosition);
   $('#ball').css({
     'left': ballPosition.x,
     'top': ballPosition.y
@@ -287,6 +258,21 @@ function resetBallPosition () {
     'top': 135
   }, 1000, 'linear');
   clearInterval(checkCollide);
+}
+
+function pauseCommentaries () {
+  commentaries.pause();
+}
+
+function updateScore (scoreplayer, div) {
+  div.html((scoreplayer === 'one' ? scorep1+=1 : scorep2+=1));
+}
+
+function resetScore () {
+  $playerone.html('0');
+  $playertwo.html('0');
+  scorep1=0;
+  scorep2=0;
 }
 
 //Inside Ball Movement function()
@@ -334,4 +320,8 @@ function hideAlert () {
   $alert.css('display', 'none'); //make the div disappear
   $shader.css('display', 'none');
   winning.pause();
+}
+
+function hitSound () {
+  new Audio('/Users/ismailalami/Development/WDI_PROJECT_1/sounds/hit.mp3').play();
 }
