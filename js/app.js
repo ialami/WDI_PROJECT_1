@@ -145,9 +145,9 @@ function checkCollision() {
   if ($leftBall >= $widthBoard - $diameterBall) {
     pauseCommentaries();
     resetBallPosition();
-    updateScore(scorep1, $playerone);
+    updateScore('one', $playerone);
     resetSpeed();
-    if (scorep1===2) {
+    if (scorep1===3) {
       displayAlert('1');
       resetScore();
     }
@@ -157,9 +157,9 @@ function checkCollision() {
   if ($leftBall <= 0) {
     pauseCommentaries();
     resetBallPosition();
-    updateScore(scorep2, $playertwo);
+    updateScore('two', $playertwo);
     resetSpeed();
-    if (scorep2===2) {
+    if (scorep2===3) {
       displayAlert('2');
       resetScore();
     }
