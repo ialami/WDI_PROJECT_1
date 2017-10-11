@@ -19,16 +19,17 @@ body {
   margin: 0 auto;
   height: 100px;
   width: 100px;
+  z-index: 3;
 }
 
 #logo img {
   width: 100px;
   height: 100px;
+  z-index: 3;
 }
 
 h1 {
   margin: auto;
-  background-color: rgb(102, 204, 255);
   text-align: center;
   font-family: Impact, fantasy;
   font-size: 40px;
@@ -36,12 +37,23 @@ h1 {
   padding: 10px;
 }
 
-p {
+.description {
   color: white;
-  background-color: rgba(102, 204, 255, 0.8);
   font-family: Impact, fantasy;
   padding: 10px;
   line-height: 200%;
+  max-width: 600px;
+  border-bottom: 3px solid white;
+  margin: 20px auto;
+}
+
+.identity {
+  color: white;
+  font-family: Impact, fantasy;
+  padding: 10px;
+  line-height: 200%;
+  max-width: 600px;
+  margin: 20px auto;
 }
 
 #board {
@@ -100,6 +112,7 @@ p {
   font-size: 60px;
   color: rgba(102, 204, 255, 0.8);
   line-height: 50%;
+  border: 0;
 }
 
 .section {
