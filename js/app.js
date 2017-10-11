@@ -77,14 +77,20 @@ const intervalNames = ['40', '38', '65', '81'];
 
 let $button;
 
+//score
 let $playerone;
 let $playertwo;
 let scorep1=0;
 let scorep2=0;
 
+//variables for the alert
 let $alert;
-let $ok;
-let $shader;
+let $ok; //ok button
+let $shader; //for z-index
+
+//sounds
+let commentaries;
+let winning;
 
 $(init);
 
@@ -120,6 +126,8 @@ function init () {
   //setInterval to check for collision and keep bouncing the ball off
 
   function playGame() {
+    commentaries = new Audio('/Users/ismailalami/Development/WDI_PROJECT_1/sounds/commentaries.mp3');
+    commentaries.play();
     checkCollide = setInterval(checkCollision, 3);
   }
 
@@ -208,6 +216,7 @@ function checkCollision() {
   //check collision with rightBorder;
   if ($leftBall >= $widthBoard - $diameterBall) {
     console.log('you lost from the right');
+    commentaries.pause();
     resetBallPosition();
     // clearInterval(checkCollide);
     scorep1 = scorep1 + 1;
@@ -226,6 +235,7 @@ function checkCollision() {
   if ($leftBall <= 0) {
     console.log($leftBall <= 0);
     console.log('you lost from the left');
+    commentaries.pause();
     resetBallPosition();
     // clearInterval(checkCollide);
     scorep2 = scorep2 + 1;
@@ -244,12 +254,14 @@ function checkCollision() {
   if (($leftBall <= $insidePaddleA) && ($topBall >= $topPaddleA) && ($topBall <= $bottomPaddleA - $diameterBall)) {
     bounceBall();
     directionVector.x = 1;
+    new Audio('/Users/ismailalami/Development/WDI_PROJECT_1/sounds/hit.mp3').play();
   }
 
   // check collision with paddleB
   if (($leftBall >= $insidePaddleB - $diameterBall) && ($topBall >= $topPaddleB) && ($topBall <= $bottomPaddleB)) {
     bounceBall();
     directionVector.x = -1;
+    new Audio('/Users/ismailalami/Development/WDI_PROJECT_1/sounds/hit.mp3').play();
   }
 }
 
@@ -310,6 +322,8 @@ function displayAlert (player) {
   $alert = $('#alert');
   $ok = $('#ok');
   $shader = $('.shader');
+  winning = new Audio('/Users/ismailalami/Development/WDI_PROJECT_1/sounds/uefa.mp3');
+  winning.play();
   $alert.css('display', 'block'); //make the div appear
   $alert.find('.message').html(`Well done! Player ${player} won`); //display message on the alert
   $shader.css('display', 'block');
@@ -319,4 +333,5 @@ function displayAlert (player) {
 function hideAlert () {
   $alert.css('display', 'none'); //make the div disappear
   $shader.css('display', 'none');
+  winning.pause();
 }
