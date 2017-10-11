@@ -100,6 +100,7 @@ function init () {
   $playerone = $('.playerone');
   $playertwo = $('.playertwo');
 
+  $(window).on('load', playGASport);
   $(document).on('keydown', movePaddles);
 
   // function startOfGame () {
@@ -129,6 +130,10 @@ function init () {
   */
 }
 // checkCollide = setInterval(checkCollision, 3);
+
+function playGASport () {
+  new Audio('/Users/ismailalami/Development/WDI_PROJECT_1/sounds/easportsound.mp3').play();
+}
 
 function movePaddles(e) {
   const keyCode = e.keyCode.toString(); //convert the keyCode to a string
@@ -313,6 +318,5 @@ function displayAlert (player) {
 
 function hideAlert () {
   $alert.css('display', 'none'); //make the div disappear
-  // $alert.remove(); //make the div disappear
   $shader.css('display', 'none');
 }
