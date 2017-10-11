@@ -40,6 +40,10 @@ let $shader; //for z-index
 let commentaries;
 let winning;
 
+//opening-screen
+let $openingScreen;
+let $openingImage;
+
 $(init);
 
 function init () {
@@ -50,33 +54,17 @@ function init () {
   $paddles = $('.paddles');
   $ball = $('#ball');
   $button = $('#button');
+  $openingScreen = $('.opening-screen');
+  $openingImage = $('.opening-screen img');
+
 
   $playerone = $('.playerone');
   $playertwo = $('.playertwo');
 
   $(window).on('load', playGASport);
 
-  /*
-$(window).on('load', runLogo);
 
-function runLogo () {
-  intervalLogo = setInterval(animateLogo, 1000)
-}
-
-function animateLogo () {
-  $shader.css('display', 'block');
-  $('#logo img').animate({
-    position: 'absolute',
-    left: '50%',
-    top: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '700px',
-    height: '700px'
-  }, 4000);
-}
-
-clearInterval(intervalLogo);
-  */
+  $(window).on('load', animateLogo);
 
   $(document).on('keydown', movePaddles);
 
@@ -107,6 +95,7 @@ function playGASport () {
 }
 
 function movePaddles(e) {
+  e.preventDefault();
   const keyCode = e.keyCode.toString(); //convert the keyCode to a string
   if (intervalNames.indexOf(keyCode) !== -1) {
     // if the keyCode is not in the array
@@ -219,12 +208,12 @@ function bounceBall () { //update position of the ball
 
 function resetBallPosition () {
   ballPosition = {
-    x: 285,
+    x: 385,
     y: 135
   };
   $('#ball').animate({
-    'left': 285,
-    'top': 135
+    'left': 385,
+    'top': 185
   }, 1000, 'linear');
   clearInterval(checkCollide);
 }
@@ -266,14 +255,22 @@ function hitSound () {
   new Audio('/Users/ismailalami/Development/WDI_PROJECT_1/sounds/hit.mp3').play();
 }
 
-// function animateLogo () {
-//   // $shader.css('display', 'block');
-//   $('#logo img').animate({
-//     position: 'absolute',
-//     left: '50%',
-//     top: '50%',
-//     transform: 'translate(-50%, -50%)',
-//     width: '700px',
-//     height: '700px'
-//   }, 4000);
-// }
+function animateLogo () {
+  $openingImage.css('opacity', '1');
+  // $openingImage.animateCss('BounceOutUp');
+  setTimeout(() => {
+    $openingScreen.css('opacity', '0');
+    setTimeout(() => {
+      $openingScreen.css('display', 'none');
+    }, 900);
+  }, 3000);
+  // $shader.css('display', 'block');
+  // $('#logo img').animate({
+  //   position: 'absolute',
+  //   left: '50%',
+  //   top: '50%',
+  //   transform: 'translate(-50%, -50%)',
+  //   width: '700px',
+  //   height: '700px'
+  // }, 4000);
+}
