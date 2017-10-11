@@ -7,7 +7,7 @@ let ballPosition = {
   x: 285,
   y: 135
 };
-const speedBall = 1;
+let speedBall = 1;
 
 let checkCollide;
 
@@ -56,31 +56,12 @@ function init () {
   $button = $('#button');
   $openingScreen = $('.opening-screen');
   $openingImage = $('.opening-screen img');
-
-
   $playerone = $('.playerone');
   $playertwo = $('.playertwo');
 
   $(window).on('load', playGASport);
-
-
   $(window).on('load', animateLogo);
-
   $(document).on('keydown', movePaddles);
-
-  // function startOfGame () {
-  // //   //send the ball to a random position, the problem that I have with that is that I want it to be executed just once, rather than every 10ms. So it should not be in the setInterval. So maybe that should be before the setInterval function. In order to work just put it inside the setInterval.
-  //   ballPosition.x = ballPosition.x + speedBall * directionVector.x;
-  //   ballPosition.y = ballPosition.y + speedBall * directionVector.y;
-  //   const randomPosition = {
-  //     x: Math.round(Math.random()*ballPosition.x),
-  //     y: Math.round(Math.random()*ballPosition.y)
-  //   };
-  //   $('#ball').css({
-  //     'left': randomPosition.x,
-  //     'top': randomPosition.y
-  //   });
-  // }
   $button.on('click', playGame);
 }
 
@@ -165,6 +146,7 @@ function checkCollision() {
     pauseCommentaries();
     resetBallPosition();
     updateScore(scorep1, $playerone);
+    resetSpeed();
     if (scorep1===2) {
       displayAlert('1');
       resetScore();
@@ -176,6 +158,7 @@ function checkCollision() {
     pauseCommentaries();
     resetBallPosition();
     updateScore(scorep2, $playertwo);
+    resetSpeed();
     if (scorep2===2) {
       displayAlert('2');
       resetScore();
@@ -184,6 +167,7 @@ function checkCollision() {
 
   // check collision with paddleA
   if (($leftBall <= $insidePaddleA) && ($topBall >= $topPaddleA) && ($topBall <= $bottomPaddleA - $diameterBall)) {
+    acceleration();
     bounceBall();
     directionVector.x = 1;
     hitSound();
@@ -191,6 +175,7 @@ function checkCollision() {
 
   // check collision with paddleB
   if (($leftBall >= $insidePaddleB - $diameterBall) && ($topBall >= $topPaddleB) && ($topBall <= $bottomPaddleB)) {
+    acceleration();
     bounceBall();
     directionVector.x = -1;
     hitSound();
@@ -264,13 +249,12 @@ function animateLogo () {
       $openingScreen.css('display', 'none');
     }, 900);
   }, 3000);
-  // $shader.css('display', 'block');
-  // $('#logo img').animate({
-  //   position: 'absolute',
-  //   left: '50%',
-  //   top: '50%',
-  //   transform: 'translate(-50%, -50%)',
-  //   width: '700px',
-  //   height: '700px'
-  // }, 4000);
+}
+
+function acceleration () {
+  speedBall+=0.02;
+}
+
+function resetSpeed () {
+  speedBall=1;
 }
