@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/debug.css">
   <title>Project 1</title>
 </head>
 <body>
@@ -18,24 +19,25 @@
   <div id="logo">
     <img src="images/gasports.png">
   </div>
-  <h1>Ping Pong</h1>
-  <div class="section">
-    <button id="button">Play</button>
-    <div id="scoreBoard">
-      <div class="score" id="playerone">Player 1: <span class="playerone">0</span></div>
-      <div class="score" id="playertwo">Player 2: <span class="playertwo">0</span></div>
+  <main>
+    <div class="section">
+      <button id="button">Play</button>
+      <div id="scoreBoard">
+        <div class="score" id="playerone">Player 1: <span class="playerone">0</span></div>
+        <div class="score" id="playertwo">Player 2: <span class="playertwo">0</span></div>
+      </div>
     </div>
-  </div>
-  <div id="board">
-    <div class="paddles" id="paddleA"></div>
-    <div class="paddles" id="paddleB"></div>
-    <div id="ball"></div>
-  </div>
-  <div id="alert">
-    <div class="message"></div>
-    <button id="ok">Ok</button>
-  </div>
-  <p class="description">HOW TO PLAY: Player 1 presses on 'Q' and 'A' to respectively go up and down while Player 2 presses on up and down arrows to respectively go up and down. The first to 11 points wins. Press play to start game.</p>
-  <p class="identity">Created by Ismail Alami as part of Project 1 for Web Development Immersive course at General Assembly (London, UK).</p>
+    <div id="board">
+      <div class="paddles" id="paddleA"></div>
+      <div class="paddles" id="paddleB"></div>
+      <div id="ball"></div>
+    </div>
+    <div id="alert">
+      <div class="message"></div>
+      <button id="ok">Ok</button>
+    </div>
+    <p class="description">HOW TO PLAY: Player 1 presses on 'Q' and 'A' to respectively go up and down while Player 2 presses on up and down arrows to respectively go up and down. The first to 11 points wins. Press play to start game.</p>
+    <p class="identity">Created by Ismail Alami as part of Project 1 for Web Development Immersive course at General Assembly (London, UK).</p>
+  </main>
 </body>
 </html>

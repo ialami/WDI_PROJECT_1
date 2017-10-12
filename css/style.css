@@ -12,7 +12,7 @@
 }
 
 body {
-  background-color: rgba(102, 204, 255, 0.4);
+  background-color: #e6e7ea;
 }
 
 .opening-screen {
@@ -65,9 +65,9 @@ h1 {
   font-family: Impact, fantasy;
   padding: 10px;
   line-height: 200%;
-  max-width: 600px;
+  max-width: 800px;
   border-bottom: 3px solid white;
-  margin: 20px auto;
+  margin: 0 auto;
   font-size: 20px;
   letter-spacing: 1px;
 }
@@ -77,15 +77,14 @@ h1 {
   font-family: Impact, fantasy;
   padding: 10px;
   line-height: 200%;
-  max-width: 600px;
-  margin: 20px auto;
+  max-width: 800px;
+  margin: 0 auto;
   font-size: 20px;
   letter-spacing: 1px;
   text-align: justify;
 }
 
 #board {
-  border: 3px solid white;
   background-color: rgba(102, 204, 255, 0.8);
   width: 800px;
   height: 400px;
@@ -130,9 +129,9 @@ h1 {
 #button {
   background-color: white;
   text-align: center;
-  position: absolute;
-  margin: auto;
-  left: 250px;
+  /*position: absolute;*/
+  /*margin: auto;*/
+  /*left: 250px;*/
   padding: 10px;
   width: 300px;
   height: 80px;
@@ -141,31 +140,28 @@ h1 {
   color: rgba(102, 204, 255, 0.8);
   line-height: 50%;
   border: 0;
+  display: inline-block;
 }
 
 .section {
   width: 800px;
-  height: 220px;
-  /*padding: 10px;*/
   position: relative;
   font-family: Impact, fantasy;
-  /*float: right;*/
   margin: 0 auto;
-  top: 20px;
-  /*background-color: rgba(102, 204, 255, 0.8);*/
   color: white;
+  text-align: center;
 }
 
 #scoreBoard {
-  /*padding: 10px;*/
+  background: white;
   position: relative;
-  top: 100px;
   line-height: 200%;
   font-size: 50px;
   border: 3px solid white;
   height: 100px;
   width: 800px;
   margin: 0 auto;
+  overflow: hidden;
 }
 
 #playerone {
@@ -228,4 +224,14 @@ h1 {
   color: white;
   background-color: rgba(102, 204, 255, 0.8);
   cursor: pointer;
+}
+
+
+/* HEADER */
+
+/* MAIN */
+main {
+  background: white;
+  max-width: 800px;
+  margin: 0 auto;
 }
