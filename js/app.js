@@ -65,46 +65,10 @@ function init () {
   $button.on('click', playGame);
 }
 
+//main functions
 function playGame() {
   playCommentaries();
   checkCollide = setInterval(checkCollision, 3);
-}
-
-function playGASport () {
-  new Audio('/Users/ismailalami/Development/WDI_PROJECT_1/sounds/easportsound.mp3').play();
-}
-
-function movePaddles(e) {
-  e.preventDefault();
-  const keyCode = e.keyCode.toString(); //convert the keyCode to a string
-  if (intervalNames.indexOf(keyCode) !== -1) {
-    // if the keyCode is not in the array
-
-
-    const interval = setInterval(function() {
-
-      topPaddleA = parseInt($paddleA.css('top'));
-      heightBoard = parseInt($board.css('height'));
-      paddlesHeight = parseInt($paddles.css('height'));
-      topPaddleB = parseInt($paddleB.css('top'));
-
-      if ((keyCode == 81) && (topPaddleA >= 5)) {
-        $paddleA.css('top', topPaddleA - 5);
-      } else if ((keyCode == 65) && (topPaddleA <= heightBoard-paddlesHeight-7)) {
-        $paddleA.css('top', topPaddleA + 5);
-      } else if ((keyCode == 38) && (topPaddleB >= 5)) {
-        $paddleB.css('top', topPaddleB - 5);
-      } else if ((keyCode == 40) && (topPaddleB <= heightBoard-paddlesHeight-7)) {
-        $paddleB.css('top', topPaddleB + 5);
-      }
-    }, 20); //perform function every 1ms
-
-    $(document).on('keyup', function(e) {
-      if (e.keyCode.toString() === keyCode) {
-        clearInterval(interval); //on keyup of one of the four keys, clear interval
-      }
-    });
-  }
 }
 
 function checkCollision() {
@@ -185,7 +149,48 @@ function checkCollision() {
   }
 }
 
-function bounceBall () { //update position of the ball
+//paddle dynamics
+function movePaddles(e) {
+  e.preventDefault();
+  const keyCode = e.keyCode.toString(); //convert the keyCode to a string
+  if (intervalNames.indexOf(keyCode) !== -1) {
+    // if the keyCode is not in the array
+
+
+    const interval = setInterval(function() {
+
+      topPaddleA = parseInt($paddleA.css('top'));
+      heightBoard = parseInt($board.css('height'));
+      paddlesHeight = parseInt($paddles.css('height'));
+      topPaddleB = parseInt($paddleB.css('top'));
+
+      if ((keyCode == 81) && (topPaddleA >= 5)) {
+        $paddleA.css('top', topPaddleA - 5);
+      } else if ((keyCode == 65) && (topPaddleA <= heightBoard-paddlesHeight-7)) {
+        $paddleA.css('top', topPaddleA + 5);
+      } else if ((keyCode == 38) && (topPaddleB >= 5)) {
+        $paddleB.css('top', topPaddleB - 5);
+      } else if ((keyCode == 40) && (topPaddleB <= heightBoard-paddlesHeight-7)) {
+        $paddleB.css('top', topPaddleB + 5);
+      }
+    }, 20); //perform function every 1ms
+
+    $(document).on('keyup', function(e) {
+      if (e.keyCode.toString() === keyCode) {
+        clearInterval(interval); //on keyup of one of the four keys, clear interval
+      }
+    });
+  }
+}
+
+function resetPaddlePosition () {
+  $('.paddles').animate({
+    'top': 200
+  }, 1000, 'linear');
+}
+
+//ball dynamics
+function bounceBall () {
   ballPosition.x = ballPosition.x + speedBall * directionVector.x;
   ballPosition.y = ballPosition.y + speedBall * directionVector.y;
   $('#ball').css({
@@ -206,15 +211,7 @@ function resetBallPosition () {
   clearInterval(checkCollide);
 }
 
-function playCommentaries () {
-  commentaries = new Audio('/Users/ismailalami/Development/WDI_PROJECT_1/sounds/commentaries.mp3');
-  commentaries.play();
-}
-
-function pauseCommentaries () {
-  commentaries.pause();
-}
-
+//score
 function updateScore (scoreplayer, div) {
   div.html((scoreplayer === 'one' ? scorep1+=1 : scorep2+=1));
 }
@@ -226,6 +223,34 @@ function resetScore () {
   scorep2=0;
 }
 
+//speed
+function acceleration () {
+  speedBall+=0.02;
+}
+
+function resetSpeed () {
+  speedBall=1;
+}
+
+//sounds
+function playGASport () {
+  new Audio('/Users/ismailalami/Development/WDI_PROJECT_1/sounds/easportsound.mp3').play();
+}
+
+function playCommentaries () {
+  commentaries = new Audio('/Users/ismailalami/Development/WDI_PROJECT_1/sounds/commentaries.mp3');
+  commentaries.play();
+}
+
+function pauseCommentaries () {
+  commentaries.pause();
+}
+
+function hitSound () {
+  new Audio('/Users/ismailalami/Development/WDI_PROJECT_1/sounds/hit.mp3').play();
+}
+
+//alert
 function displayAlert (player) {
   $alert = $('#alert');
   $ok = $('#ok');
@@ -244,10 +269,11 @@ function hideAlert () {
   winning.pause();
 }
 
-function hitSound () {
-  new Audio('/Users/ismailalami/Development/WDI_PROJECT_1/sounds/hit.mp3').play();
+function messageColor (color) {
+  $('.message').css('color', color);
 }
 
+//logo animation
 function animateLogo () {
   $openingImage.css('opacity', '1');
   // $openingImage.animateCss('BounceOutUp');
@@ -257,22 +283,4 @@ function animateLogo () {
       $openingScreen.css('display', 'none');
     }, 900);
   }, 3000);
-}
-
-function acceleration () {
-  speedBall+=0.02;
-}
-
-function resetSpeed () {
-  speedBall=1;
-}
-
-function resetPaddlePosition () {
-  $('.paddles').animate({
-    'top': 200
-  }, 1000, 'linear');
-}
-
-function messageColor (color) {
-  $('.message').css('color', color);
 }
