@@ -47,6 +47,7 @@ let $line;
 
 $(init);
 
+//main functions
 function init () {
   // declare JQuery variables
   $paddleA = $('#paddleA');
@@ -67,7 +68,6 @@ function init () {
   $button.on('click', playGame);
 }
 
-//main functions
 function playGame() {
   playCommentaries();
   checkCollide = setInterval(checkCollision, 3);
