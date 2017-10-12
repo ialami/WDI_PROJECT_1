@@ -145,6 +145,7 @@ function checkCollision() {
   if ($leftBall >= $widthBoard - $diameterBall) {
     pauseCommentaries();
     resetBallPosition();
+    resetPaddlePosition();
     updateScore('one', $playerone);
     resetSpeed();
     if (scorep1===3) {
@@ -157,6 +158,7 @@ function checkCollision() {
   if ($leftBall <= 0) {
     pauseCommentaries();
     resetBallPosition();
+    resetPaddlePosition();
     updateScore('two', $playertwo);
     resetSpeed();
     if (scorep2===3) {
@@ -257,4 +259,10 @@ function acceleration () {
 
 function resetSpeed () {
   speedBall=1;
+}
+
+function resetPaddlePosition () {
+  $('.paddles').animate({
+    'top': 150
+  }, 1000, 'linear');
 }
