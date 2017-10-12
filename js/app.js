@@ -66,8 +66,7 @@ function init () {
 }
 
 function playGame() {
-  commentaries = new Audio('/Users/ismailalami/Development/WDI_PROJECT_1/sounds/commentaries.mp3');
-  commentaries.play();
+  playCommentaries();
   checkCollide = setInterval(checkCollision, 3);
 }
 
@@ -203,6 +202,11 @@ function resetBallPosition () {
     'top': 185
   }, 1000, 'linear');
   clearInterval(checkCollide);
+}
+
+function playCommentaries () {
+  commentaries = new Audio('/Users/ismailalami/Development/WDI_PROJECT_1/sounds/commentaries.mp3');
+  commentaries.play();
 }
 
 function pauseCommentaries () {
