@@ -4,8 +4,8 @@ const directionVector = {
   y: 1
 };
 let ballPosition = {
-  x: 285,
-  y: 135
+  x: 485,
+  y: 235
 };
 let speedBall = 1;
 
@@ -90,11 +90,11 @@ function movePaddles(e) {
 
       if ((keyCode == 81) && (topPaddleA >= 5)) {
         $paddleA.css('top', topPaddleA - 5);
-      } else if ((keyCode == 65) && (topPaddleA <= heightBoard-paddlesHeight-10)) {
+      } else if ((keyCode == 65) && (topPaddleA <= heightBoard-paddlesHeight-7)) {
         $paddleA.css('top', topPaddleA + 5);
       } else if ((keyCode == 38) && (topPaddleB >= 5)) {
         $paddleB.css('top', topPaddleB - 5);
-      } else if ((keyCode == 40) && (topPaddleB <= heightBoard-paddlesHeight-10)) {
+      } else if ((keyCode == 40) && (topPaddleB <= heightBoard-paddlesHeight-7)) {
         $paddleB.css('top', topPaddleB + 5);
       }
     }, 20); //perform function every 1ms
@@ -149,6 +149,7 @@ function checkCollision() {
     resetSpeed();
     if (scorep1===3) {
       displayAlert('1');
+      messageColor('#e8161c');
       resetScore();
     }
   }
@@ -162,6 +163,7 @@ function checkCollision() {
     resetSpeed();
     if (scorep2===3) {
       displayAlert('2');
+      messageColor('#2ECC40');
       resetScore();
     }
   }
@@ -194,12 +196,12 @@ function bounceBall () { //update position of the ball
 
 function resetBallPosition () {
   ballPosition = {
-    x: 385,
-    y: 135
+    x: 485,
+    y: 235
   };
   $('#ball').animate({
-    'left': 385,
-    'top': 185
+    'left': 485,
+    'top': 235
   }, 1000, 'linear');
   clearInterval(checkCollide);
 }
@@ -231,7 +233,7 @@ function displayAlert (player) {
   winning = new Audio('/Users/ismailalami/Development/WDI_PROJECT_1/sounds/uefa.mp3');
   winning.play();
   $alert.css('display', 'block'); //make the div appear
-  $alert.find('.message').html(`Well done! Player ${player} won`); //display message on the alert
+  $alert.find('.message').html(`Player ${player} won`); //display message on the alert
   $shader.css('display', 'block');
   $ok.on('click', hideAlert);
 }
@@ -267,6 +269,10 @@ function resetSpeed () {
 
 function resetPaddlePosition () {
   $('.paddles').animate({
-    'top': 150
+    'top': 200
   }, 1000, 'linear');
+}
+
+function messageColor (color) {
+  $('.message').css('color', color);
 }
