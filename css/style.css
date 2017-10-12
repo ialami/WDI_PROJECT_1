@@ -124,6 +124,16 @@ h4 {
   right: 20px;
 }
 
+.line {
+  height: 496px;
+  width: 4px;
+  margin-left: 501px;
+  margin-top: 24px;
+  background-color: white;
+  position: absolute;
+  /*display: none;*/
+  z-index: 1;
+}
 /* BOTTOM TEXT */
 
 p {
@@ -175,7 +185,7 @@ textarea, input, button {
   height: 100vh;
   background: rgba(0,0,0,0.3);
   position: absolute;
-  z-index: 2;
+  z-index: 3;
   display: none;
 }
 
@@ -190,7 +200,7 @@ textarea, input, button {
   text-align: center;
   font-size: 2rem;
   opacity: 1;
-  z-index: 3;
+  z-index: 4;
 }
 
 #ok {

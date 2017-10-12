@@ -43,6 +43,7 @@ let winning;
 //opening-screen
 let $openingScreen;
 let $openingImage;
+let $line;
 
 $(init);
 
@@ -56,6 +57,7 @@ function init () {
   $button = $('#button');
   $openingScreen = $('.opening-screen');
   $openingImage = $('.opening-screen img');
+  $line = $('.line');
   $playerone = $('.playerone');
   $playertwo = $('.playertwo');
 
@@ -276,9 +278,11 @@ function messageColor (color) {
 //logo animation
 function animateLogo () {
   $openingImage.css('opacity', '1');
+  $line.css('display', 'none');
   // $openingImage.animateCss('BounceOutUp');
   setTimeout(() => {
     $openingScreen.css('opacity', '0');
+    $line.css('display', 'block');
     setTimeout(() => {
       $openingScreen.css('display', 'none');
     }, 900);
