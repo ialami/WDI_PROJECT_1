@@ -175,7 +175,7 @@ function movePaddles(e) {
       } else if ((keyCode == 40) && (topPaddleB <= heightBoard-paddlesHeight-7)) {
         $paddleB.css('top', topPaddleB + 5);
       }
-    }, 20); //perform function every 1ms
+    }, 20);
 
     $(document).on('keyup', function(e) {
       if (e.keyCode.toString() === keyCode) {
