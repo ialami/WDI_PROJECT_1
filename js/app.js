@@ -113,7 +113,7 @@ function checkCollision() {
     resetPaddlePosition();
     updateScore('one', $playerone);
     resetSpeed();
-    if (scorep1===3) {
+    if (scorep1===11) {
       displayAlert('1');
       messageColor('#e8161c');
       resetScore();
@@ -127,7 +127,7 @@ function checkCollision() {
     resetPaddlePosition();
     updateScore('two', $playertwo);
     resetSpeed();
-    if (scorep2===3) {
+    if (scorep2===11) {
       displayAlert('2');
       messageColor('#2ECC40');
       resetScore();
